@@ -1,0 +1,109 @@
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateToDo" (click)="onShowAddNew()">
+  Add new
+</button>
+<hr />
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let toDo of myToDoList; index as i">
+      <td class="font-weight-bold">{{ i + 1 }}</td>
+      <td>{{ toDo.toDoTitle }}</td>
+      <td>{{ toDo.toDoContent }}</td>
+      <td>
+        <div *ngIf="toDo.toDoStatus === 20" class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated p-2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">{{toDo.toDoStatusText}}</div>
+        </div>
+        <i class="fa fa-check-circle fa-2x text-white rounded-0 text-success" *ngIf="toDo.toDoStatus === 30"></i>
+      </td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary mr-2" *ngIf="toDo.toDoStatus !== 30" (click)="onFinishToDo(toDo.toDoID)">Finish</button>
+        <button type="button" class="btn btn-sm btn-info mr-2" (click)="onShowEdit(toDo);">Edit</button>
+        <button type="button" class="btn btn-sm btn-warning mr-2" (click)="onShowConfirmDelete(toDo)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="updateToDo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{titleUpdate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="txtTitle" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="txtTitle" id="txtTitle" [(ngModel)]="selectedItem.toDoTitle" placeholder="Enter title">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="txtContent" class="col-sm-2 col-form-label">Content</label>
+            <div class="col-sm-10">
+              <textarea type="text" class="form-control" name="txtContent" id="txtContent" [(ngModel)]="selectedItem.toDoContent" placeholder="Enter content"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="txtStatus" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="txtStatus" id="txtStatus" [(ngModel)]="selectedItem.toDoStatus">
+                <option *ngFor="let status of toDoStatusValue" [ngValue]="status.statusValue">{{status.statusName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="txtCategory" class="col-sm-2 col-form-label">Category</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="txtCategory" id="txtCategory" [(ngModel)]="selectedItem.categoryID">
+                <option *ngFor="let category of categories" [ngValue]="category.categoryID">{{category.categoryName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="onSubmit()" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm delete?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            Do you want to delete?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, my mistake!</button>
+          <button type="button" (click)="onDeleteToDo()" class="btn btn-primary">Yes, delete it!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

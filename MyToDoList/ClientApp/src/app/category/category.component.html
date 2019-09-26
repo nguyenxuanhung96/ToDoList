@@ -1,0 +1,86 @@
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateCategory" (click)="onShowAddNewCategory();">
+  Add new
+</button>
+<hr />
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Content</th>
+      <th>CreateAt</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of myCategories; index as i">
+      <td class="font-weight-bold">{{ i + 1 }}</td>
+      <td>{{ category.categoryName }}</td>
+      <td><span>{{ category.createAt | date: 'dd/MM/yyyy HH:mm'}}</span></td>
+      <td>
+        <button type="button" class="btn btn-sm btn-info mr-2" (click)="onShowEditCategory(category)">Edit</button>
+        <button type="button" class="btn btn-sm btn-warning mr-2" (click)="onShowDeleteCategory(category)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{titleUpdate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="txtName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="txtName" id="txtName" [(ngModel)]="seletedItem.categoryName" placeholder="Enter name">
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="isEdit">
+            <label for="txtCreateAt" class="col-sm-2 col-form-label">Create at</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control" name="txtCreateAt" id="txtCreateAt"
+                     [ngModel]="seletedItem.createAt | date: 'dd/MM/yyyy HH:mm'">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="onSubmit()" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm delete?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            Do you want to delete?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, my mistake!</button>
+          <button type="button" (click)="onConfirmDelete()" class="btn btn-primary">Yes, delete it!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
