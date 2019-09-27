@@ -39,6 +39,24 @@ namespace MyToDoList.Services.Implements
             }
         }
 
+        public ResponseBaseModel DeleteToDo(int toDoId, int createBy)
+        {
+            try
+            {
+                var toDo = _toDoRepository.GetById(toDoId);
+                if(toDo != null)
+                {
+                    toDo.IsDeleted = true;
+                    _toDoRepository.Update(toDo);
+                    return ResponseBaseModel.Success("Delete successfully");
+                }
+                return ResponseBaseModel.Success("ToDo not found!");
+            }catch(Exception ex)
+            {
+                return ResponseBaseModel.Failed(ex.Message);
+            }
+        }
+
         public ResponseBaseModel EditToDo(int toDoId, string title, string content, int status, int categoryId, int createBy)
         {
             try

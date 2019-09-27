@@ -43,6 +43,12 @@ namespace MyToDoList.Controllers
         {
             return Ok(_toDoService.EditToDo(model.toDoID, model.toDoTitle, model.toDoContent, model.toDoStatus, model.categoryID, 1));
         }
+        [Route("DeleteToDo")]
+        [HttpPost]
+        public IActionResult Delete([FromBody] int toDoId)
+        {
+            return Ok(_toDoService.DeleteToDo(toDoId, 1));
+        }
 
         [Route("GetToDoStatusValue")]
         [HttpGet]

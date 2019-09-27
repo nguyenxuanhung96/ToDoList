@@ -16,6 +16,7 @@ namespace MyToDoList.Tables
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public int UserID { get; set; }
+        public bool IsDeleted { get; set; }
         public virtual Category Category { get; set; }
     }
     public partial class ToDo
@@ -33,6 +34,7 @@ namespace MyToDoList.Tables
                 ToDoStatus = (byte)status,
                 CategoryID = categoryId,
                 UserID = createBy,
+                IsDeleted = false,
             };
         }
     }

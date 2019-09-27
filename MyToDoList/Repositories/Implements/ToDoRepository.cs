@@ -15,7 +15,7 @@ namespace MyToDoList.Repositories.Implements
 
         public IEnumerable<ToDo> GetAllToDos()
         {
-            IEnumerable<ToDo> result = GetAll().ToList();
+            IEnumerable<ToDo> result = GetAll().Where(t => !t.IsDeleted).ToList();
             return result;
         }
 

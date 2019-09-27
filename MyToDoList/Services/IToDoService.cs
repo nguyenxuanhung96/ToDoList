@@ -9,6 +9,7 @@ namespace MyToDoList.Services
         IEnumerable<ToDoModel> GetListToDos();
         bool AddToDo(string title, string content, int status, int categoryId, int createBy);
         ResponseBaseModel EditToDo(int toDoId, string title, string content, int status, int categoryId, int createBy);
+        ResponseBaseModel DeleteToDo(int toDoId, int createBy);
         bool FinishToDo(int toDoID);
     }
 }

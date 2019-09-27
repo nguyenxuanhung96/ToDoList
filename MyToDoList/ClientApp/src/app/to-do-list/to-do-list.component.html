@@ -20,10 +20,11 @@
       <td>{{ toDo.toDoTitle }}</td>
       <td>{{ toDo.toDoContent }}</td>
       <td>
+        <i class="fa fa-exclamation-circle fa-2x text-white rounded-0 text-warning animated bounceIn" *ngIf="toDo.toDoStatus === 10" title="{{toDo.toDoStatusText}}"  ></i>
         <div *ngIf="toDo.toDoStatus === 20" class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated p-2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">{{toDo.toDoStatusText}}</div>
         </div>
-        <i class="fa fa-check-circle fa-2x text-white rounded-0 text-success" *ngIf="toDo.toDoStatus === 30"></i>
+        <i class="fa fa-check-circle fa-2x text-white rounded-0 text-success animated bounceIn" *ngIf="toDo.toDoStatus === 30" title="{{toDo.toDoStatusText}}"></i>
       </td>
       <td>
         <button type="button" class="btn btn-sm btn-primary mr-2" *ngIf="toDo.toDoStatus !== 30" (click)="onFinishToDo(toDo.toDoID)">Finish</button>

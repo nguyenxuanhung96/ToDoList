@@ -54,14 +54,6 @@ export class ToDoListComponent implements OnInit {
         }, error => console.error(error));
     }
 
-    onFinishToDo(toDoId: number): void {
-        this.http.post(this.baseUrl + 'api/ToDoList/FinishToDo', toDoId).subscribe(result => {
-            if (result) {
-                this.notify.success("Finished ToDo successfully");
-                this.onFetchData();
-            }
-        });
-    }
 
     onSubmit() {
         if (this.isEdit) {
